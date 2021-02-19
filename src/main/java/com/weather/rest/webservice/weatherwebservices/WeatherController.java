@@ -4,6 +4,8 @@ package com.weather.rest.webservice.weatherwebservices;
  import org.springframework.web.bind.annotation.PathVariable;
  import org.springframework.web.bind.annotation.RestController;
 
+ import javax.websocket.DeploymentException;
+ import java.net.URISyntaxException;
 
 //Controller
 //@RestController makes this a REST Controller that can handle REST requests
@@ -11,8 +13,15 @@ package com.weather.rest.webservice.weatherwebservices;
 @RestController
 public class WeatherController {
 
+    private final WeatherService weatherService;
+
+    public WeatherController(WeatherService weatherService) {
+        this.weatherService = weatherService;
+    }
+
     @GetMapping(path = "weather/{location}")
-    public Weather currentWeather(@PathVariable String location) {
-        return new Weather(String.format("%s", location), 5, "icon/url");
+    public String currentWeather() throws URISyntaxException, DeploymentException {
+
+        return weatherService.getCurrentWeather();
     }
 }
