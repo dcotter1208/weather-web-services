@@ -2,10 +2,10 @@ package com.weather.rest.webservice.weatherwebservices;
 
 public class Weather {
     private String location;
-    private Number temperature;
+    private Double temperature;
     private String icon;
 
-    public Weather(String location, Number temperature, String icon) {
+    public Weather(String location, Double temperature, String icon) {
         this.location = location;
         this.temperature = temperature;
         this.icon = icon;
@@ -19,11 +19,11 @@ public class Weather {
         this.location = location;
     }
 
-    public Number getTemperature() {
+    public Double getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(Number temperature) {
+    public void setTemperature(Double temperature) {
         this.temperature = temperature;
     }
 
