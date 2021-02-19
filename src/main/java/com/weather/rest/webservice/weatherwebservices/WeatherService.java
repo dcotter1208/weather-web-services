@@ -23,10 +23,10 @@ public class WeatherService {
         */
         String constructedURL = BASE_WEATHER_URL + "current?access_key=" + API_KEY + "&units=f" + "&query=" + location;
         String weatherStackResponse = webClientBuilder.build().get().uri(constructedURL).retrieve().bodyToMono(String.class).block();
-        return constructedJSON(weatherStackResponse);
+        return constructWeather(weatherStackResponse);
         }
 
-        Weather constructedJSON(String response) throws JsonProcessingException {
+        Weather constructWeather(String response) throws JsonProcessingException {
             JsonNode root = objectMapper.readTree(response);
             String location = root.path("location").path("name").asText();
             Double temp = root.path("current").path("temperature").asDouble();
