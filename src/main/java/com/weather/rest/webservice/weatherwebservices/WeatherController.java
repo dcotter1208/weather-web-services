@@ -20,8 +20,8 @@ public class WeatherController {
     }
 
     @GetMapping(path = "weather/{location}")
-    public String currentWeather() throws URISyntaxException, DeploymentException {
+    public String currentWeather(@PathVariable String location) throws URISyntaxException, DeploymentException {
 
-        return weatherService.getCurrentWeather();
+        return weatherService.getCurrentWeather(location);
     }
 }
