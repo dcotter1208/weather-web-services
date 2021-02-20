@@ -2,23 +2,23 @@ package com.weather.rest.webservice.weatherwebservices;
 import java.util.ArrayList;
 
 public class Weather {
-    private Double temperature;
+    private Integer temperature;
     private String icon;
     private String description;
     private ArrayList<DailyForecast> forecast;
 
-    public Weather(Double temperature, String icon, String description, ArrayList<DailyForecast> forecast) {
+    public Weather(Integer temperature, String icon, String description, ArrayList<DailyForecast> forecast) {
         this.temperature = temperature;
         this.icon = icon;
         this.description = description;
         this.forecast = forecast;
     }
 
-    public Double getTemperature() {
+    public Integer getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(Double temperature) {
+    public void setTemperature(Integer temperature) {
         this.temperature = temperature;
     }
 

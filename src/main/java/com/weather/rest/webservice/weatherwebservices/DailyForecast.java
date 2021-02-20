@@ -1,21 +1,21 @@
 package com.weather.rest.webservice.weatherwebservices;
 
 public class DailyForecast {
-    private Double maxTemp;
+    private Integer maxTemp;
     private String icon;
     private String description;
 
-    public DailyForecast(Double maxTemp, String icon, String description) {
+    public DailyForecast(Integer maxTemp, String icon, String description) {
         this.maxTemp = maxTemp;
         this.icon = icon;
         this.description = description;
     }
 
-    public Double getMaxTemp() {
+    public Integer getMaxTemp() {
         return maxTemp;
     }
 
-    public void setMaxTemp(Double maxTemp) {
+    public void setMaxTemp(Integer maxTemp) {
         this.maxTemp = maxTemp;
     }
 

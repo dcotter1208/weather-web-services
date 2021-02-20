@@ -30,7 +30,7 @@ public class WeatherService {
 
         Weather constructWeather(String response) throws JsonProcessingException {
             JsonNode root = objectMapper.readTree(response);
-            Double temp = root.path("current").path("temp").asDouble();
+            Integer temp = root.path("current").path("temp").asInt();
             String icon = root.path("current").path("weather").get(0).path("icon").asText();
             String icon_url = String.format("http://openweathermap.org/img/wn/%s@2x.png", icon);
             String description = root.path("current").path("weather").get(0).path("description").asText();
@@ -45,7 +45,7 @@ public class WeatherService {
             ArrayList<DailyForecast> list = new ArrayList<>();
             if (dailyNode.isArray()) {
                 for (JsonNode jsonNode : dailyNode) {
-                    Double maxTemp = jsonNode.path("temp").path("max").asDouble();
+                    Integer maxTemp = jsonNode.path("temp").path("max").asInt();
                     String icon = jsonNode.path("weather").get(0).path("icon").asText();
                     String icon_url = String.format("http://openweathermap.org/img/wn/%s@2x.png", icon);
                     String description = jsonNode.path("weather").get(0).path("description").asText();
