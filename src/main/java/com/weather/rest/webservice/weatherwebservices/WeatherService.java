@@ -2,6 +2,8 @@ package com.weather.rest.webservice.weatherwebservices;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -44,16 +46,30 @@ public class WeatherService {
     ArrayList<DailyForecast> constructDailyForecast(JsonNode dailyNode) {
             ArrayList<DailyForecast> list = new ArrayList<>();
             if (dailyNode.isArray()) {
+                int daysInFuture = 1;
                 for (JsonNode jsonNode : dailyNode) {
                     Integer maxTemp = jsonNode.path("temp").path("max").asInt();
                     String icon = jsonNode.path("weather").get(0).path("icon").asText();
                     String icon_url = String.format("http://openweathermap.org/img/wn/%s@2x.png", icon);
                     String description = jsonNode.path("weather").get(0).path("description").asText();
-                    DailyForecast dailyForecast = new DailyForecast(maxTemp, icon_url, description);
+                    String day = dayOfWeek(daysInFuture);
+                    daysInFuture++;
+                    DailyForecast dailyForecast = new DailyForecast(maxTemp, icon_url, description, day);
                     list.add(dailyForecast);
                 }
             }
             return list;
+        }
+
+        String dayOfWeek(Integer daysInFuture) {
+            String today = LocalDate.now().toString();
+            LocalDate date = LocalDate
+                    .parse(today)
+                    .plusDays(daysInFuture);
+            String dayOfWeek = DayOfWeek.from(date).name().toLowerCase();
+            String capDayOfWeek = dayOfWeek.substring(0, 1).toUpperCase() + dayOfWeek.substring(1);
+            
+            return capDayOfWeek;
         }
 
     }
