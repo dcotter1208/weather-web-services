@@ -1,5 +1,7 @@
 package com.weather.rest.webservice.weatherwebservices;
  import com.fasterxml.jackson.core.JsonProcessingException;
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
  import org.springframework.web.bind.annotation.CrossOrigin;
  import org.springframework.web.bind.annotation.GetMapping;
  import org.springframework.web.bind.annotation.PathVariable;
@@ -19,9 +21,11 @@ public class WeatherController {
         this.weatherService = weatherService;
     }
 
-    @GetMapping(path = "weather/{location}")
-    public Weather currentWeather(@PathVariable String location) throws JsonProcessingException {
-
-        return weatherService.getCurrentWeather(location);
+    @GetMapping(path = "weather-forecast/{lat}/{lon}")
+    public Weather forecast(@PathVariable String lat, @PathVariable String lon) throws JsonProcessingException {
+        Logger logger = LoggerFactory.getLogger(WeatherController.class);
+        logger.info(lat);
+        logger.info(lon);
+        return weatherService.getWeather(lat, lon);
     }
 }

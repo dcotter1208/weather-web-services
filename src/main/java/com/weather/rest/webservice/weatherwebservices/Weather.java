@@ -1,22 +1,17 @@
 package com.weather.rest.webservice.weatherwebservices;
+import java.util.ArrayList;
 
 public class Weather {
-    private String location;
     private Double temperature;
     private String icon;
+    private String description;
+    private ArrayList<DailyForecast> forecast;
 
-    public Weather(String location, Double temperature, String icon) {
-        this.location = location;
+    public Weather(Double temperature, String icon, String description, ArrayList<DailyForecast> forecast) {
         this.temperature = temperature;
         this.icon = icon;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
+        this.description = description;
+        this.forecast = forecast;
     }
 
     public Double getTemperature() {
@@ -33,5 +28,21 @@ public class Weather {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public ArrayList<DailyForecast> getForecast() {
+        return forecast;
+    }
+
+    public void setForecast(ArrayList<DailyForecast> forecast) {
+        this.forecast = forecast;
     }
 }
