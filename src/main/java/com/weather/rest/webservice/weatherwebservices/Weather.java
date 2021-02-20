@@ -2,40 +2,20 @@ package com.weather.rest.webservice.weatherwebservices;
 import java.util.ArrayList;
 
 public class Weather {
-    private Integer temperature;
-    private String icon;
-    private String description;
+    private CurrentWeather current;
     private ArrayList<DailyForecast> forecast;
 
-    public Weather(Integer temperature, String icon, String description, ArrayList<DailyForecast> forecast) {
-        this.temperature = temperature;
-        this.icon = icon;
-        this.description = description;
+    public Weather(CurrentWeather current, ArrayList<DailyForecast> forecast) {
+        this.current = current;
         this.forecast = forecast;
     }
 
-    public Integer getTemperature() {
-        return temperature;
+    public CurrentWeather getCurrent() {
+        return current;
     }
 
-    public void setTemperature(Integer temperature) {
-        this.temperature = temperature;
-    }
-
-    public String getIcon() {
-        return icon;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCurrent(CurrentWeather current) {
+        this.current = current;
     }
 
     public ArrayList<DailyForecast> getForecast() {

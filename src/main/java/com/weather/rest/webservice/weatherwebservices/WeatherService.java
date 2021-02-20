@@ -38,7 +38,8 @@ public class WeatherService {
             String description = root.path("current").path("weather").get(0).path("description").asText();
             JsonNode dailyNode = root.path("daily");
             ArrayList<DailyForecast> dailyForecast = constructDailyForecast(dailyNode);
-            Weather weather = new Weather(temp, icon_url, description, dailyForecast);
+            CurrentWeather current = new CurrentWeather(temp, icon_url, description);
+            Weather weather = new Weather(current, dailyForecast);
 
             return weather;
         }
@@ -68,7 +69,7 @@ public class WeatherService {
                     .plusDays(daysInFuture);
             String dayOfWeek = DayOfWeek.from(date).name().toLowerCase();
             String capDayOfWeek = dayOfWeek.substring(0, 1).toUpperCase() + dayOfWeek.substring(1);
-            
+
             return capDayOfWeek;
         }
 
