@@ -8,12 +8,11 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 public class WeatherService {
-    private static final String OPEN_WEATHER_API_KEY = "";
     private static final String OPEN_WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/onecall?";
     private static final WebClient.Builder webClientBuilder = WebClient.builder();
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    public Weather getWeather(String lat, String lon) throws JsonProcessingException {
+    public Weather getWeather(String lat, String lon, String key) throws JsonProcessingException {
                 /*
         1. Builder pattern to create a client
         2. get() to define what type of call - GET
@@ -23,7 +22,7 @@ public class WeatherService {
         5.
         */
 
-        String constructedURL = OPEN_WEATHER_BASE_URL + "lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,alerts" + "&units=imperial" + "&appid=" + OPEN_WEATHER_API_KEY;
+        String constructedURL = OPEN_WEATHER_BASE_URL + "lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,alerts" + "&units=imperial" + "&appid=" + key;
         String openWeatherResponse = webClientBuilder.build().get().uri(constructedURL).retrieve().bodyToMono(String.class).block();
 
         return constructWeather(openWeatherResponse);
