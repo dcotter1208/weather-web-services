@@ -4,11 +4,13 @@ public class DailyForecast {
     private Integer maxTemp;
     private String icon;
     private String description;
+    private String dayOfWeek;
 
-    public DailyForecast(Integer maxTemp, String icon, String description) {
+    public DailyForecast(Integer maxTemp, String icon, String description, String dayOfWeek) {
         this.maxTemp = maxTemp;
         this.icon = icon;
         this.description = description;
+        this.dayOfWeek = dayOfWeek;
     }
 
     public Integer getMaxTemp() {
@@ -33,5 +35,13 @@ public class DailyForecast {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public void setDayOfWeek(String dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 }
