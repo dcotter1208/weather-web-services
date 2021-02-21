@@ -10,7 +10,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 public class WeatherService {
-    private static final String OPEN_WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/onecall?";
+    private static final String OPEN_WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/onecall?lat=%s&lon=%s&exclude=minutely,hourly,alerts&units=imperial&appid=%s";
     private static final WebClient.Builder webClientBuilder = WebClient.builder();
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private final LocationService locationService = new LocationService();
@@ -26,7 +26,7 @@ public class WeatherService {
         */
 
         Location locationResponse = locationService.getCoordinatesFromLocation(location);
-        String constructedURL = OPEN_WEATHER_BASE_URL + "lat=" + locationResponse.getLat() + "&lon=" + locationResponse.getLon() + "&exclude=minutely,hourly,alerts" + "&units=imperial" + "&appid=" + key;
+        String constructedURL = String.format(OPEN_WEATHER_BASE_URL, locationResponse.getLat(), locationResponse.getLon(), key);
         String openWeatherResponse = webClientBuilder.build().get().uri(constructedURL).retrieve().bodyToMono(String.class).block();
 
         return constructWeather(openWeatherResponse);
