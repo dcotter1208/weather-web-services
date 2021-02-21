@@ -13,7 +13,7 @@ public class WeatherController {
     }
 
     @GetMapping(path = "weather-forecast")
-    public Weather forecast(@RequestParam String lat, @RequestParam String lon, @RequestParam String key) throws JsonProcessingException {
-        return weatherService.getWeather(lat, lon, key);
+    public Weather forecast(@RequestParam String location, @RequestParam String key) throws JsonProcessingException {
+        return weatherService.getWeather(location, key);
     }
 }
