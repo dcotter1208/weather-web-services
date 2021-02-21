@@ -10,11 +10,12 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 public class WeatherService {
-    private static final String OPEN_WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/onecall?";
+    private static final String OPEN_WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5/onecall?lat=%s&lon=%s&exclude=minutely,hourly,alerts&units=imperial&appid=%s";
     private static final WebClient.Builder webClientBuilder = WebClient.builder();
     private static final ObjectMapper objectMapper = new ObjectMapper();
+    private final LocationService locationService = new LocationService();
 
-    public Weather getWeather(String lat, String lon, String key) throws JsonProcessingException {
+    public Weather getWeather(String location, String key) throws JsonProcessingException {
                 /*
         1. Builder pattern to create a client
         2. get() to define what type of call - GET
@@ -24,7 +25,8 @@ public class WeatherService {
         5.
         */
 
-        String constructedURL = OPEN_WEATHER_BASE_URL + "lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,alerts" + "&units=imperial" + "&appid=" + key;
+        Location locationResponse = locationService.getCoordinatesFromLocation(location);
+        String constructedURL = String.format(OPEN_WEATHER_BASE_URL, locationResponse.getLat(), locationResponse.getLon(), key);
         String openWeatherResponse = webClientBuilder.build().get().uri(constructedURL).retrieve().bodyToMono(String.class).block();
 
         return constructWeather(openWeatherResponse);
